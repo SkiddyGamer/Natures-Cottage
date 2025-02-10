@@ -5,6 +5,8 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Luxury Getaways</title>
 		<link rel="stylesheet" href="styles.css" />
+		<!-- Flatpickr CSS -->
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 	</head>
 	<body>
 		<header>
@@ -27,7 +29,7 @@
 		<main>
 			<section class="hero">
 				<video class="background-video" autoplay muted loop>
-					<source src="videos/3 meginajums.mp4" type="video/mp4" />
+					<source src="2 meginajums.mp4" type="video/mp4" />
 					Your browser does not support the video tag.
 				</video>
 				<div class="hero-content">
@@ -35,7 +37,7 @@
 					<p>Explore unique properties and create unforgettable memories.</p>
 					<form class="search-filters">
 						<input type="text" placeholder="Location" required />
-						<input type="date" required />
+						<input type="text" id="date-range" placeholder="Select dates" required />
 						<input type="number" placeholder="Guests" min="1" required />
 						<button type="submit" class="btn primary">Search</button>
 					</form>
@@ -49,28 +51,19 @@
 				</p>
 				<div class="property-grid">
 					<div class="property-card">
-						<img
-							src="https://via.placeholder.com/300x200"
-							alt="Property Image"
-						/>
+						<img src="https://via.placeholder.com/300x200" alt="Property Image" />
 						<h3>Cozy Cottage</h3>
 						<p>$150/night</p>
 						<button class="btn view-details">View Details</button>
 					</div>
 					<div class="property-card">
-						<img
-							src="https://via.placeholder.com/300x200"
-							alt="Property Image"
-						/>
+						<img src="https://via.placeholder.com/300x200" alt="Property Image" />
 						<h3>Modern Villa</h3>
 						<p>$250/night</p>
 						<button class="btn view-details">View Details</button>
 					</div>
 					<div class="property-card">
-						<img
-							src="https://via.placeholder.com/300x200"
-							alt="Property Image"
-						/>
+						<img src="https://via.placeholder.com/300x200" alt="Property Image" />
 						<h3>Seaside Escape</h3>
 						<p>$180/night</p>
 						<button class="btn view-details">View Details</button>
@@ -87,5 +80,16 @@
 				<a href="#">Twitter</a>
 			</div>
 		</footer>
+
+		<!-- Flatpickr JS -->
+		<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+		<script>
+			// Initialize Flatpickr with range mode
+			flatpickr("#date-range", {
+				mode: "range",
+				dateFormat: "Y-m-d",
+				minDate: "today"
+			});
+		</script>
 	</body>
 </html>
