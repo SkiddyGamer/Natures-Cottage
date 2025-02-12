@@ -28,7 +28,7 @@ header {
 	padding: 20px 40px;
 	background: linear-gradient(45deg, #45523e, #5c7f4a);
 	color: white;
-	position: sticky;
+	position: relative;
 	top: 0;
 	z-index: 1000;
 }
@@ -43,16 +43,25 @@ header .logo span {
 	color: #ffffff;
 }
 
+nav {
+    display: flex;
+    justify-content: flex-end; 
+    align-items: center;
+    gap: 50px; 
+}
+
 .nav-links {
     display: flex;
-    gap: 30px; 
-    font-size: 18px; 
+    gap: 45px; 
+    list-style: none;
+    padding: 0;
+    margin: 0;
 }
 
 .nav-links li a {
-	color: white;
-	font-size: 16px;
-	transition: color 0.3s;
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
 }
 
 .nav-links li a:hover {
@@ -60,8 +69,8 @@ header .logo span {
 }
 
 .auth-buttons {
-	display: flex;
-	gap: 15px;
+    display: flex;
+    gap: 10px; /* Space between sign-in and sign-up buttons */
 }
 
 .btn {
@@ -70,7 +79,7 @@ header .logo span {
 	cursor: pointer;
 	border-radius: 25px;
 	background-color: #5c7f4a;
-	color: #ffe9d9;
+	color: #ffffff;
 	font-size: 16px;
 	font-weight: bold;
 	transition: transform 0.3s, box-shadow 0.3s;
@@ -294,4 +303,80 @@ body {
 	padding: 0;
 	overflow-x: hidden;
 }
+
+body, html {
+	margin: 0;
+	padding: 0;
+}
+
+/* Aptumst ekrāns kad uzspied sign in un sign up */
+#overlay {
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.5); 
+	z-index: 999;
+}
+
+body.modal-open {
+position: fixed;
+width: 100%;
+overflow-y: scroll;
+}
+/* Login Forma */
+#authForm {
+	display: none;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background-color: rgb(209, 232, 198);
+	padding: 20px;
+	width: 400px;
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+	border-radius: 8px;
+	z-index: 1000;
+}
+
+.input-group {
+	margin-bottom: 15px;
+	
+}
+
+.input-group input {
+	width: 100%;
+	padding: 10px;
+	margin-top: 5px;
+	border-radius: 5px;
+	border: 1px solid #ddd;
+}
+
+.btn {
+	padding: 10px 20px;
+	border: none;
+	cursor: pointer;
+	border-radius: 25px;
+	background-color: #5c7f4a;
+	color: white;
+	font-size: 16px;
+	font-weight: bold;
+	transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.btn.primary {
+	background-color: #A12C68;
+}
+
+/* X poga formā */
+.close-btn {
+	position: absolute;
+	top: 10px;
+	right: 15px;
+	font-size: 30px;
+	cursor: pointer;
+}
+
 
