@@ -3,14 +3,14 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Luxury Getaways</title>
+		<title>NaturesCottage</title>
 		<link rel="stylesheet" href="styles.css" />
-		<!-- Flatpickr CSS -->
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+		
 	</head>
 	<body>
 		<header>
-			<div class="logo">Luxury<span>Getaways</span></div>
+			<div class="logo">Natures<span>Cottage</span></div>
 			<nav>
 				<ul class="nav-links">
 					<li><a href="index.html">Home</a></li>
@@ -36,7 +36,7 @@
 					<h1>Discover Your Dream Vacation</h1>
 					<p>Explore unique properties and create unforgettable memories.</p>
 					<form class="search-filters">
-						<input type="text" placeholder="Location" required />
+						<input type="text" placeholder="Where are you going" required />
 						<input type="text" id="date-range" placeholder="Select dates" required />
 						<input type="number" placeholder="Guests" min="1" required />
 						<button type="submit" class="btn primary">Search</button>
@@ -73,18 +73,15 @@
 		</main>
 
 		<footer>
-			<p>© 2024 LuxuryGetaways. Crafted with ❤️ for your perfect vacation.</p>
+			<p>© 2024 NaturesCottage. Crafted with ❤️ for your perfect vacation.</p>
 			<div class="social-links">
 				<a href="#">Facebook</a>
 				<a href="#">Instagram</a>
 				<a href="#">Twitter</a>
 			</div>
 		</footer>
-
-		<!-- Flatpickr JS -->
 		<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 		<script>
-			// Initialize Flatpickr with range mode
 			flatpickr("#date-range", {
 				mode: "range",
 				dateFormat: "Y-m-d",
