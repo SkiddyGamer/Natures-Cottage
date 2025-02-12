@@ -1,71 +1,58 @@
-const postList = document.getElementById('post-list');
-const postForm = document.getElementById('post-form');
+signUpButton.addEventListener('click',function(){
+    signInForm.style.display="none";
+    signUpForm.style.display="block";
+})
+signInButton.addEventListener('click', function(){
+    signInForm.style.display="block";
+    signUpForm.style.display="none";
+})
 
-let posts = [];
 
-function renderPosts() {
-	postList.innerHTML = '';
-	posts.forEach((post, index) => {
-		const postElement = document.createElement('div');
-		postElement.className = 'post';
-		postElement.innerHTML = `
-            <img src="${post.image}" alt="${post.title}" />
-            <h3>${post.title}</h3>
-            <p>${post.description}</p>
-            <button onclick="viewPost(${index})">View</button>
-        `;
-		postList.appendChild(postElement);
-	});
-}
+        const signInButton = document.getElementById("signInButton");
+        const signUpButton = document.getElementById("signUpButton");
+        const authForm = document.getElementById("authForm");
+        const overlay = document.getElementById("overlay");
 
-postForm.addEventListener('submit', (e) => {
-	e.preventDefault();
-	const title = document.getElementById('title').value;
-	const description = document.getElementById('description').value;
-	const image = document.getElementById('image').value;
+   
+        signInButton.addEventListener("click", () => {
+            openModal();
+            document.getElementById("signInForm").style.display = "block";
+            document.getElementById("signUpForm").style.display = "none";
+        });
 
-	posts.push({ title, description, image });
-	renderPosts();
+        
+        signUpButton.addEventListener("click", () => {
+            openModal();
+            document.getElementById("signInForm").style.display = "none";
+            document.getElementById("signUpForm").style.display = "block";
+        });
 
-	postForm.reset();
-});
+       
+        document.getElementById("signInToggle").addEventListener("click", () => {
+            document.getElementById("signInForm").style.display = "block";
+            document.getElementById("signUpForm").style.display = "none";
+        });
 
-function viewPost(index) {
-	const post = posts[index];
-	localStorage.setItem('viewedPost', JSON.stringify(post));
-	window.location.href = 'post.html';
-}
+        document.getElementById("signUpToggle").addEventListener("click", () => {
+            document.getElementById("signInForm").style.display = "none";
+            document.getElementById("signUpForm").style.display = "block";
+        });
 
-renderPosts();
+       
+        function openModal() {
+            authForm.style.display = "block";
+            overlay.style.display = "block";
+            document.body.classList.add("modal-open"); 
+        }
 
-$(function () {
-	$('#from').datepicker({
-		dateFormat: 'yy-mm-dd',
-		minDate: 0,
-		onSelect: function (selectedDate) {
-			$('#to').datepicker('option', 'minDate', selectedDate);
-		},
-	});
+      
+        function closeModal() {
+            authForm.style.display = "none";
+            overlay.style.display = "none";
+            document.body.classList.remove("modal-open"); 
+        }
 
-	$('#to').datepicker({
-		dateFormat: 'yy-mm-dd',
-		minDate: 0,
-		onSelect: function (selectedDate) {
-			$('#from').datepicker('option', 'maxDate', selectedDate);
-		},
-	});
-});
+        
+        overlay.addEventListener("click", closeModal);
 
-const signUpButton = document.getElementById('signUpButton');
-const signInButton = document.getElementById('signInButton');
-const signInForm = document.getElementById('signIn');
-const signUpForm = document.getElementById('signup');
-
-signUpButton.addEventListener('click', function () {
-	signInForm.style.display = 'none';
-	signUpForm.style.display = 'block';
-});
-signInButton.addEventListener('click', function () {
-	signInForm.style.display = 'block';
-	signUpForm.style.display = 'none';
-});
+        
