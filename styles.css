@@ -26,7 +26,7 @@ header {
 	justify-content: space-between;
 	align-items: center;
 	padding: 20px 40px;
-	background: linear-gradient(45deg, #66023C, #810120);
+	background: linear-gradient(45deg, #45523e, #5c7f4a);
 	color: white;
 	position: sticky;
 	top: 0;
@@ -44,8 +44,9 @@ header .logo span {
 }
 
 .nav-links {
-	display: flex;
-	gap: 20px;
+    display: flex;
+    gap: 30px; 
+    font-size: 18px; 
 }
 
 .nav-links li a {
@@ -68,15 +69,15 @@ header .logo span {
 	border: none;
 	cursor: pointer;
 	border-radius: 25px;
-	background-color: #ffe66d;
-	color: #333;
+	background-color: #5c7f4a;
+	color: #ffe9d9;
 	font-size: 16px;
 	font-weight: bold;
 	transition: transform 0.3s, box-shadow 0.3s;
 }
 
 .btn.primary {
-	background-color: #ff6f61;
+	background-color: #A12C68;
 	color: white;
 }
 
