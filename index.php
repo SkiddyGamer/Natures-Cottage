@@ -1,5 +1,6 @@
 <?php session_start(); ?>
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,6 +15,7 @@
     <?php include 'Header.php'; ?>
     
     <?php include 'login_form.php'; ?>
+    
 
     <main>
         <section class="hero">
