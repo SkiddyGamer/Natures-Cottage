@@ -44,20 +44,18 @@
             border: 1px solid #ccc;
             border-radius: 5px;
         }
-        button {
+        #Pogasubmit {
             display: block;
             width: 100%;
             padding: 10px;
-            background-color: #007bff;
+            background-color: #5c7f4a;
             color: white;
             border: none;
             border-radius: 5px;
             cursor: pointer;
             margin-top: 10px;
         }
-        button:hover {
-            background-color: #0056b3;
-        }
+        
     </style>
 </head>
 <body>
@@ -91,7 +89,7 @@
             <label for="image">Upload Images:</label>
             <input type="file" id="image" name="image[]" accept="image/*" multiple required>
             
-            <button type="submit">Submit Listing</button>
+            <button id='Pogasubmit' type="submit">Submit Listing</button>
         </form>
     </main>
 </body>
