@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>List Your Property - Luxury Getaways</title>
     <link rel="stylesheet" href="styles.css" />
+	 <?php include 'Header.php'; ?>
+	 <?php include 'login_form.php'; ?>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -59,18 +61,7 @@
     </style>
 </head>
 <body>
-    <header>
-        <div class="logo">Luxury<span>Getaways</span></div>
-        <nav>
-            <ul class="nav-links">
-                <li><a href="index.php">Home</a></li>
-                <li><a href="listings.php">Browse properties</a></li>
-                <li><a href="details.php">List your property</a></li>
-                <li><a href="about.php">About</a></li>
-                <li><a href="contact.php">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
+   
     <main>
         <h1>Tell us about yourself!</h1>
         <form action="submit_listing.php" method="POST" enctype="multipart/form-data">
