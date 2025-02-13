@@ -1,3 +1,5 @@
+<?php session_start(); ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,76 +11,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
-    <header>
-        <div class="logo">Nature's<span> Cottage</span></div>
-        <nav>
-            <ul class="nav-links">
-                <li><a href="index.php">Home</a></li>
-                <li><a href="listings.php">Browse properties</a></li>
-                <li><a href="details.php">List your property</a></li>
-                <li><a href="about.php">About</a></li>
-                <li><a href="contact.php">Contact</a></li>
-            </ul>
-            <div class="auth-buttons">
-                <button class="btn" id="signInButton">Sign In</button>
-                <button class="btn primary" id="signUpButton">Sign Up</button>
-            </div>
-        </nav>
-    </header>
-
-    <div id="overlay"></div>
-
-    <div id="authForm">
-        <span class="close-btn" onclick="closeModal()">&times;</span>
-
-        <div id="signInForm">
-            <h2>Sign In</h2>
-            <!-- Form action changed to login.php -->
-            <form method="post" action="login.php">
-                <div class="input-group">
-                    <p>Email</p>
-                    <input type="email" name="email" required>
-                </div>
-                <div class="input-group">
-                    <p>Password</p>
-                    <input type="password" name="password" required>
-                </div>
-                <input type="submit" class="btn" value="Sign In">
-            </form>
-            <p>Don't have an account yet?</p>
-            <button id="signUpToggle">Sign Up</button>
-        </div>
-
-        <div id="signUpForm" style="display:none;">
-            <h2>Sign Up</h2>
-            <!-- Form action kept as register.php -->
-            <form method="post" action="register.php">
-                <div class="input-group">
-                    <p>First Name</p>
-                    <input type="text" name="fName" required>
-                </div>
-                <div class="input-group">
-                    <p>Last Name</p>
-                    <input type="text" name="lName" required>
-                </div>
-                <div class="input-group">
-                    <p>Email</p>
-                    <input type="email" name="email" required>
-                </div>
-                <div class="input-group">
-                    <p>Password</p>
-                    <input type="password" name="password" required>
-                </div>
-                <div class="input-group">
-                    <p>Phone Number</p>
-                    <input type="text" name="pNumber" required>
-                </div>
-                <input type="submit" class="btn" value="Sign Up" name="signUp">
-            </form>
-            <p>Already have an account?</p>
-            <button id="signInToggle">Sign In</button>
-        </div>
-    </div>
+    <?php include 'Header.php'; ?>
+    
+    <?php include 'login_form.php'; ?>
 
     <main>
         <section class="hero">
@@ -142,52 +77,7 @@
             minDate: "today"
         });
 
-        const signInButton = document.getElementById("signInButton");
-        const signUpButton = document.getElementById("signUpButton");
-        const authForm = document.getElementById("authForm");
-        const overlay = document.getElementById("overlay");
-
-        // Open Sign In Form
-        signInButton.addEventListener("click", () => {
-            openModal();
-            document.getElementById("signInForm").style.display = "block";
-            document.getElementById("signUpForm").style.display = "none";
-        });
-
-        // Open Sign Up Form
-        signUpButton.addEventListener("click", () => {
-            openModal();
-            document.getElementById("signInForm").style.display = "none";
-            document.getElementById("signUpForm").style.display = "block";
-        });
-
-        // Toggle Sign In / Sign Up Forms
-        document.getElementById("signInToggle").addEventListener("click", () => {
-            document.getElementById("signInForm").style.display = "block";
-            document.getElementById("signUpForm").style.display = "none";
-        });
-
-        document.getElementById("signUpToggle").addEventListener("click", () => {
-            document.getElementById("signInForm").style.display = "none";
-            document.getElementById("signUpForm").style.display = "block";
-        });
-
-        // Function to Open Modal
-        function openModal() {
-            authForm.style.display = "block";
-            overlay.style.display = "block";
-            document.body.classList.add("modal-open"); // Lock scrolling
-        }
-
-        // Function to Close Modal
-        function closeModal() {
-            authForm.style.display = "none";
-            overlay.style.display = "none";
-            document.body.classList.remove("modal-open"); // Enable scrolling
-        }
-
-        // Close Modal When Clicking Outside
-        overlay.addEventListener("click", closeModal);
+        
     </script>
 </body>
 </html>
