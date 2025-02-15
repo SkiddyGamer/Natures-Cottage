@@ -32,7 +32,7 @@ if ($result->num_rows > 0) {
 <body>
 
 <header>
-    <div class="logo">Natures<span>Cottage</span></div>
+    <div class="logo">Nature's<span> Cottage</span></div>
     <nav>
         <ul class="nav-links">
             <li><a href="index.php">Home</a></li>
@@ -49,7 +49,7 @@ if ($result->num_rows > 0) {
 
 <main>
     <section class="account-info">
-        <h2>Your Account</h2>
+        <h2>Your Account:</h2>
         <p>Name: <?php echo $user['firstName']; ?></p>
         <p>Email: <?php echo $user['email']; ?></p>
         <p>Phone Number: <?php echo $user['phoneNumber']; ?></p>
