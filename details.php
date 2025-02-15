@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>List Your Property - Luxury Getaways</title>
     <link rel="stylesheet" href="styles.css" />
-	 <?php include 'Header.php'; ?>
-	 <?php include 'login_form.php'; ?>
+    <?php include 'Header.php'; ?>
+    <?php include 'login_form.php'; ?>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -55,42 +55,53 @@
             cursor: pointer;
             margin-top: 10px;
         }
-        
+        label {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        #file-input {
+            display: block;
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
-   
+
     <main>
         <h1>Tell us about yourself!</h1>
         <form action="submit_listing.php" method="POST" enctype="multipart/form-data">
+            <!-- Personal Information -->
             <div class="form-group">
                 <input type="text" id="first_name" name="first_name" placeholder="First Name" required>
                 <input type="text" id="last_name" name="last_name" placeholder="Last Name" required>
             </div>
-            
+
             <div class="form-group">
                 <input type="tel" id="phone" name="phone" placeholder="Phone" required>
                 <input type="email" id="email" name="email" placeholder="Email" required>
             </div>
-            
+
+            <!-- Property Address Information -->
             <input type="text" id="street_address" name="street_address" placeholder="Property Street Address" required>
-            
             <div class="form-group">
                 <input type="text" id="city" name="city" placeholder="City" required>
                 <input type="text" id="postal_code" name="postal_code" placeholder="Postal Code" required>
             </div>
+
             <h2>Tell us about your property</h2>
             <input type="text" id="property_name" name="property_name" placeholder="Property Name" required>
-            <input type="text" id="location" name="location" placeholder="Location" required>
-            <input type="number" id="price" name="price" placeholder="Price per Night ($)" required>
             
+            <input type="number" id="price" name="price" placeholder="Price per Night ($)" required>
+
             <textarea id="description" name="Short description" rows="4" placeholder="Short description" required oninput="this.style.height = ''; this.style.height = this.scrollHeight + 'px'"></textarea>
             
-            <label for="image">Upload Images:</label>
-            <input type="file" id="image" name="image[]" accept="image/*" multiple required>
+        
+            <label for="file-input">Upload Property Photos</label>
+            <input type="file" id="file-input" name="photos[]" accept="image/*" multiple required>
             
-            <button id='Pogasubmit' type="submit">Submit Listing</button>
+            <button id="Pogasubmit" type="submit">Submit Listing</button>
         </form>
     </main>
+
 </body>
 </html>
