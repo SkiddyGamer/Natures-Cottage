@@ -1,4 +1,4 @@
-<?php session_start(); ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -11,6 +11,8 @@
 	<body>
 	<?php include 'Header.php'; ?>
 	<?php include 'login_form.php'; ?>
+	
+	
 
 		<main>
 			<h1>About Us</h1>
