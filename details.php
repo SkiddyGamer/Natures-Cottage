@@ -91,13 +91,13 @@
             <h2>Tell us about your property</h2>
             <input type="text" id="property_name" name="property_name" placeholder="Property Name" required>
             
-            <input type="number" id="price" name="price" placeholder="Price per Night ($)" required>
+            <input type="number" id="price" name="price" placeholder="Price per Night (€)" required>
 
-            <textarea id="description" name="Short description" rows="4" placeholder="Short description" required oninput="this.style.height = ''; this.style.height = this.scrollHeight + 'px'"></textarea>
+            <textarea id="description" name="description" rows="4" placeholder="Short description" required oninput="this.style.height = ''; this.style.height = this.scrollHeight + 'px'"></textarea>
             
         
             <label for="file-input">Upload Property Photos</label>
-            <input type="file" id="file-input" name="photos[]" accept="image/*" multiple required>
+            <input type="file" id="file-input" name="image[]" accept="image/*" multiple required>
             
             <button id="Pogasubmit" type="submit">Submit Listing</button>
         </form>
