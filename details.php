@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -67,41 +68,60 @@
 </head>
 <body>
 
-    <main>
-        <h1>Tell us about yourself!</h1>
-        <form action="submit_listing.php" method="POST" enctype="multipart/form-data">
-            <!-- Personal Information -->
-            <div class="form-group">
-                <input type="text" id="first_name" name="first_name" placeholder="First Name" required>
-                <input type="text" id="last_name" name="last_name" placeholder="Last Name" required>
-            </div>
+<main>
+    <h1>Tell us about yourself!</h1>
+    <form action="submit_listing.php" method="POST" enctype="multipart/form-data">
+        <!-- Personal Information -->
+        <div class="form-group">
+            <input type="text" id="first_name" name="first_name" placeholder="First Name" required>
+            <input type="text" id="last_name" name="last_name" placeholder="Last Name" required>
+        </div>
 
-            <div class="form-group">
-                <input type="tel" id="phone" name="phone" placeholder="Phone" required>
-                <input type="email" id="email" name="email" placeholder="Email" required>
-            </div>
+        <div class="form-group">
+            <input type="tel" id="phone" name="phone" placeholder="Phone" required>
+            <input type="email" id="email" name="email" placeholder="Email" required>
+        </div>
 
-            <!-- Property Address Information -->
-            <input type="text" id="street_address" name="street_address" placeholder="Property Street Address" required>
-            <div class="form-group">
-                <input type="text" id="city" name="city" placeholder="City" required>
-                <input type="text" id="postal_code" name="postal_code" placeholder="Postal Code" required>
-            </div>
-
-            <h2>Tell us about your property</h2>
-            <input type="text" id="property_name" name="property_name" placeholder="Property Name" required>
-            
-            <input type="number" id="price" name="price" placeholder="Price per Night (€)" required>
-
-            <textarea id="description" name="description" rows="4" placeholder="Short description" required oninput="this.style.height = ''; this.style.height = this.scrollHeight + 'px'"></textarea>
-            
+        <!-- Property Address Information -->
         
-            <label for="file-input">Upload Property Photos</label>
-            <input type="file" id="file-input" name="image[]" accept="image/*" multiple required>
-            
-            <button id="Pogasubmit" type="submit">Submit Listing</button>
-        </form>
-    </main>
+
+        <h2>Tell us about your property</h2>
+        <input type="text" id="property_name" name="property_name" placeholder="Property Name" required>
+        <input type="text" id="street_address" name="street_address" placeholder="Property Street Address" required>
+        <div class="form-group">
+            <input type="text" id="city" name="city" placeholder="City" required>
+            <input type="text" id="postal_code" name="postal_code" placeholder="Postal Code" required>
+        </div>
+        
+        <input type="number" id="price" name="price" placeholder="Price per Night (€)" required>
+
+        
+        <input type="number" id="guests" name="guests" min="1" placeholder="Max Guests" required>
+
+        
+        <input type="number" id="bedrooms" name="bedrooms" min="1" placeholder="Bedrooms" required>
+
+        
+        <input type="number" id="bathrooms" name="bathrooms" min="1" step="0.5" placeholder="Bathrooms" required>
+
+        <label for="property_type">Property Type</label>
+        <select id="property_type" name="property_type" required>
+            <option value="" disabled selected>Select property type</option>
+            <option value="house">House</option>
+            <option value="villa">Villa</option>
+            <option value="cabin">Cabin</option>
+            <option value="apartment">Apartment</option>
+        </select>
+
+        <textarea id="description" name="description" rows="4" placeholder="Short description" required oninput="this.style.height = ''; this.style.height = this.scrollHeight + 'px'"></textarea>
+        
+        <label for="file-input">Upload Property Photos</label>
+        <input type="file" id="file-input" name="image[]" accept="image/*" multiple required>
+        
+        <button id="Pogasubmit" type="submit">Submit Listing</button>
+    </form>
+</main>
+
 
 </body>
 </html>
