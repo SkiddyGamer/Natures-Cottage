@@ -66,7 +66,6 @@
             margin: 5px 0;
             overflow: hidden;
             display: -webkit-box;
-            -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
         }
 
@@ -149,6 +148,20 @@
             echo '<div class="property-listings">';
             while ($row = $result->fetch_assoc()) {
                 $property_id = $row['id']; // Get the property ID
+                $property_type = htmlspecialchars($row['property_type']);
+                $bedrooms = (int)$row['bedrooms'];
+                $bathrooms = (float)$row['bathrooms'];
+                $guests = (int)$row['guests'];
+
+                // Determine the correct icon for the property type
+                $propertyIcons = [
+                    'house' => 'fa-home',
+                    'villa' => 'fa-landmark',
+                    'cabin' => 'fa-tree',
+                    'apartment' => 'fa-building'
+                ];
+                $propertyIcon = isset($propertyIcons[$property_type]) ? $propertyIcons[$property_type] : 'fa-home';
+
                 echo '<a href="property_details.php?id=' . $property_id . '" class="property-card">';  // Link to the details page
                 $images = explode(',', $row['images']);
                 if (!empty($images[0])) {
@@ -157,13 +170,17 @@
                 echo '<div class="property-details">';
                 echo '<h2>' . htmlspecialchars($row['property_name']) . '</h2>';
                 echo '<p>' . htmlspecialchars($row['description']) . '</p>';
-                echo '<p class="price">Starting at <strong>€' . htmlspecialchars($row['price']) . '</strong> / night</p>';
+                echo '<p class="price"><strong>€' . htmlspecialchars($row['price']) . '</strong> / night</p>';
 
                 // Icons for property details
                 echo '<div class="info-bar">';
                 echo '<span><i class="fas fa-map-marker-alt"></i> ' . htmlspecialchars($row['city']) . '</span>';
-                echo '<span><i class="fas fa-home"></i> House</span>';
+                echo '<span><i class="fas fa-bed"></i> ' . $bedrooms . '</span>';
+                echo '<span><i class="fas fa-bath"></i> ' . $bathrooms . '</span>';
+                echo '<span><i class="fas fa-user-group"></i> ' . $guests . '</span>';  // Guests icon
+                echo '<span><i class="fas ' . $propertyIcon . '"></i> ' . ucfirst($property_type) . '</span>';
                 echo '</div>';
+
                 echo '</div>';
                 echo '</a>';
             }
