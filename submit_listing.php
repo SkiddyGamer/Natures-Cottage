@@ -1,9 +1,9 @@
 <?php
-
-$host = 'localhost'; 
-$username = 'root'; 
-$password = ''; 
-$database = 'submitlisting'; 
+// Database connection
+$host = 'localhost'; // Change if needed
+$username = 'root'; // Your database username
+$password = ''; // Your database password
+$database = 'submitlisting'; // Your database name
 
 $conn = new mysqli($host, $username, $password, $database);
 
@@ -20,9 +20,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $city = $conn->real_escape_string($_POST['city']);
     $postal_code = $conn->real_escape_string($_POST['postal_code']);
     $property_name = $conn->real_escape_string($_POST['property_name']);
-    $price = $conn->real_escape_string($_POST['price']);
-    $description = $conn->real_escape_string($_POST['Short_description']);
-    
+    $price = (float) $_POST['price']; // Ensuring it's a numeric value
+    $description = $conn->real_escape_string($_POST['description']);
+    $guests = (int) $_POST['guests']; // Ensuring it's an integer
+    $bedrooms = (int) $_POST['bedrooms']; // Ensuring it's an integer
+    $bathrooms = (float) $_POST['bathrooms']; // Ensuring it's a decimal (e.g., 1.5)
+    $property_type = $conn->real_escape_string($_POST['property_type']);
+
     // Handling Image Upload
     $imagePaths = [];
     if (!empty($_FILES['image']['name'][0])) {
@@ -43,16 +47,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     
     $imagePathsString = implode(',', $imagePaths);
 
-    $sql = "INSERT INTO properties (first_name, last_name, phone, email, street_address, city, postal_code, property_name, price, description, images) 
-            VALUES ('$first_name', '$last_name', '$phone', '$email', '$street_address', '$city', '$postal_code', '$property_name', '$price', '$description', '$imagePathsString')";
+    $sql = "INSERT INTO properties 
+            (first_name, last_name, phone, email, street_address, city, postal_code, property_name, price, guests, bedrooms, bathrooms, property_type, description, images) 
+            VALUES 
+            ('$first_name', '$last_name', '$phone', '$email', '$street_address', '$city', '$postal_code', '$property_name', '$price', '$guests', '$bedrooms', '$bathrooms', '$property_type', '$description', '$imagePathsString')";
 
-if ($conn->query($sql) === TRUE) {
-    
-    header("Location: listings.php");
-    exit(); 
-} else {
-    echo "Error: " . $sql . "<br>" . $conn->error;
-}
+    if ($conn->query($sql) === TRUE) {
+        header("Location: listings.php");
+        exit();
+    } else {
+        echo "Error: " . $sql . "<br>" . $conn->error;
+    }
 }
 
 $conn->close();
