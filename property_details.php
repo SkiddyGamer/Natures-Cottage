@@ -70,10 +70,12 @@ if ($result->num_rows > 0) {
     <body>
 
         <?php include 'Header.php'; ?> <!-- Your header file -->
+        <?php include 'login_form.php'; ?>
         
         <main>
             <div class="property-detail">
                 <h1><?php echo htmlspecialchars($property['property_name']); ?></h1>
+                <?php echo htmlspecialchars($property['street_address']);?>
 
                 <!-- Display Image -->
                 <img src="<?php echo htmlspecialchars($property['images']); ?>" alt="Property Image">
