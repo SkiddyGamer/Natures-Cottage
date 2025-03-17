@@ -104,7 +104,9 @@
         </div>
 
         <div id="map"></div>
+        <label for="price">Price</label>
         <input type="number" id="price" name="price" placeholder="Price per Night (€)" required>
+        <label for="guests">Additional information</label>
         <input type="number" id="guests" name="guests" min="1" placeholder="Max Guests" required>
         <input type="number" id="bedrooms" name="bedrooms" min="1" placeholder="Bedrooms" required>
         <input type="number" id="bathrooms" name="bathrooms" min="1" step="0.5" placeholder="Bathrooms" required>
@@ -117,7 +119,8 @@
             <option value="cabin">Cabin</option>
             <option value="apartment">Apartment</option>
         </select>
-
+        
+        <label for="description">Description</label>
         <textarea id="description" name="description" rows="4" placeholder="Short description" required oninput="this.style.height = ''; this.style.height = this.scrollHeight + 'px'"></textarea>
 
         <label for="file-input">Upload Property Photos</label>
