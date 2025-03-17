@@ -184,10 +184,19 @@
                 }
                 echo '<div class="property-details">';
                 echo '<h2>' . htmlspecialchars($row['property_name']) . '</h2>';
-                echo '<p>' . htmlspecialchars($row['description']) . '</p>';
+                $maxLength = 70; 
+                $description = htmlspecialchars($row['description'], ENT_QUOTES, 'UTF-8');
+                $shortDescription = mb_substr($description, 0, $maxLength, 'UTF-8');
+
+                if (mb_strlen($description, 'UTF-8') > $maxLength) {
+                $shortDescription .= '...'; 
+                }
+
+                echo '<p>' . $shortDescription . '</p>';
+
                 echo '<p class="price"><strong>€' . htmlspecialchars($row['price']) . '</strong> / night</p>';
 
-                // Icons for property details
+                
                 echo '<div class="info-bar">';
                 echo '<span><i class="fas fa-map-marker-alt"></i> ' . htmlspecialchars($row['city']) . '</span>';
                 echo '<span><i class="fas fa-bed"></i> ' . $bedrooms . '</span>';
