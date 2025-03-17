@@ -126,6 +126,21 @@
     <main>
         <h1>Property Listings</h1>
         <p>Browse through our available vacation rentals.</p>
+        <input type="text" id="searchBar" placeholder="Search" onkeyup="filterProperties()" style="width: 100%; padding: 10px; margin-bottom: 20px; font-size: 16px; border: 1px solid #ccc; border-radius: 5px;">
+        <select id="guestFilter" onchange="filterProperties()" style="width: 100%; padding: 10px; margin-bottom: 20px; font-size: 16px; border: 1px solid #ccc; border-radius: 5px;">
+    <option value="">Filter by Guests</option>
+    <option value="1">1 Guest</option>
+    <option value="2">2 Guests</option>
+    <option value="3">3 Guests</option>
+    <option value="4">4 Guests</option>
+    <option value="5">5 Guests</option>
+    <option value="6">6 Guests</option>
+    <option value="7">7 Guests</option>
+    <option value="8">8 Guests</option>
+    <option value="9">9 Guests</option>
+    <option value="10">10+ Guests</option>
+</select>
+
 
         <?php
         // Database connection
@@ -192,6 +207,30 @@
         $conn->close();
         ?>
     </main>
+    <script>
+        function filterProperties() {
+    let input = document.getElementById('searchBar').value.toLowerCase();
+    let guestFilter = document.getElementById('guestFilter').value;
+    let propertyCards = document.querySelectorAll('.property-card');
+
+    propertyCards.forEach(card => {
+        let title = card.querySelector('h2').innerText.toLowerCase();
+        let description = card.querySelector('p').innerText.toLowerCase();
+        let location = card.querySelector('.info-bar span:first-child').innerText.toLowerCase();
+        let guests = parseInt(card.querySelector('.info-bar span:nth-child(4)').innerText.trim()); // Get guest number
+
+        let matchesSearch = title.includes(input) || description.includes(input) || location.includes(input);
+        let matchesGuestFilter = guestFilter === "" || (guestFilter === "10" ? guests >= 10 : guests == guestFilter);
+
+        if (matchesSearch && matchesGuestFilter) {
+            card.style.display = "";
+        } else {
+            card.style.display = "none";
+        }
+    });
+}
+
+    </script>
 
 </body>
 </html>
