@@ -27,17 +27,23 @@
             align-items: center;
             gap: 10px;
         }
-
         .account-icon:hover {
-	color: #ffe66d;
-}
-       
+            color: #ffe66d;
+        }
+        .logo a {
+            text-decoration: none;
+            color: inherit;
+            font-weight: bold;
+            font-size: 24px;
+        }
     </style>
 </head>
 <body>
 
 <header>
-    <div class="logo">Nature's <span>Cottage</span></div>
+    <div class="logo">
+        <a href="index.php">Nature's <span>Cottage</span></a>
+    </div>
     <nav>
         <ul class="nav-links">
             <li><a href="index.php">Home</a></li>
@@ -52,7 +58,6 @@
                 <a href="account.php" class="account-icon">
                     <i class="fa-solid fa-user"></i> 
                 </a>
-                
             <?php else: ?>
                 <button class="btn" id="signInButton">Sign In</button>
                 <button class="btn primary" id="signUpButton">Sign Up</button>
