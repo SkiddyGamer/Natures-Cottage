@@ -70,7 +70,8 @@ nav {
 
 .auth-buttons {
     display: flex;
-    gap: 10px; /* Space between sign-in and sign-up buttons */
+    gap: 10px;
+	
 }
 
 .btn {
@@ -88,6 +89,14 @@ nav {
 .btn.primary {
 	background-color: #A12C68;
 	color: white;
+	padding: 10px 20px;
+	border: none;
+	cursor: pointer;
+	border-radius: 25px;
+	font-size: 16px;
+	font-weight: bold;
+	
+
 }
 
 .btn:hover {
@@ -309,7 +318,7 @@ body, html {
 	padding: 0;
 }
 
-/* Aptumst ekrāns kad uzspied sign in un sign up */
+
 #overlay {
 	display: none;
 	position: fixed;
@@ -326,7 +335,7 @@ position: fixed;
 width: 100%;
 overflow-y: scroll;
 }
-/* Login Forma */
+
 #authForm {
 	display: none;
 	position: fixed;
@@ -370,7 +379,7 @@ overflow-y: scroll;
 	background-color: #A12C68;
 }
 
-/* X poga formā */
+
 .close-btn {
 	position: absolute;
 	top: 10px;
@@ -378,5 +387,3 @@ overflow-y: scroll;
 	font-size: 30px;
 	cursor: pointer;
 }
-
-

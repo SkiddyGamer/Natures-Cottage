@@ -1,5 +1,5 @@
 <?php
-// Database connection
+
 $host = 'localhost';
 $username = 'root';
 $password = '';
@@ -11,7 +11,7 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-// Fetch the latest properties (limit to 3 for featured section)
+
 $sql = "SELECT id, property_name, price, images FROM properties ORDER BY id DESC LIMIT 3";
 $result = $conn->query($sql);
 ?>
@@ -30,24 +30,79 @@ $result = $conn->query($sql);
     <?php include 'Header.php'; ?>
     <?php include 'login_form.php'; ?>
 
-    <main>
-        <section class="hero">
-            <video class="background-video" autoplay muted loop>
-                <source src="2 meginajums.mp4" type="video/mp4" />
-            </video>
-            <div class="hero-content">
-                <h1>Discover Your Dream Vacation</h1>
-                <p>Explore unique properties and create unforgettable memories.</p>
-                <form class="search-filters">
-                    <input type="text" placeholder="Where are you going?" required />
-                    <input type="text" id="date-range" placeholder="Select dates" required />
-                    <input type="number" placeholder="Guests" min="1" required />
-                    <button type="submit" class="btn primary">Search</button>
-                </form>
-            </div>
-        </section>
+<style>.hero {
+                height: 100vh; 
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                position: relative;
+                text-align: center;
+                padding-top: 40px; 
+            }
 
-        <!-- Updated Featured Properties Section -->
+.hero-content {
+                position: absolute;
+                color: white;
+                text-align: center;
+                max-width: 800px; 
+                padding: 20px;
+                transform: scale(0.8); 
+                margin-top: 80px; 
+            }
+
+.hero h1 {
+    font-size: 2rem; 
+}
+
+.hero p {
+    font-size: 1rem; 
+}
+
+.search-filters {
+    display: flex;
+    gap: 10px; 
+    justify-content: center;
+    align-items: center;
+    flex-wrap: nowrap; 
+    max-width: 100%;
+}
+
+.search-filters input,
+.search-filters button {
+    padding: 8px;
+    font-size: 14px;
+    width: auto; 
+    flex: 1; 
+    min-width: 150px; 
+}
+
+.search-filters button {
+    white-space: nowrap; 
+}
+
+
+.properties {
+    margin-top: -210px; 
+}</style>
+
+    <main>
+    <section class="hero">
+    <video class="background-video" autoplay muted loop>
+        <source src="2 meginajums.mp4" type="video/mp4" />
+    </video>
+    <div class="hero-content">
+        <h1>Discover Your Dream Vacation</h1>
+        <p>Explore unique properties and create unforgettable memories.</p>
+        <form class="search-filters" action="listings.php" method="GET">
+            <input type="text" name="location" placeholder="Where are you going?" required />
+            <input type="text" name="dates" id="date-range" placeholder="Select dates" required />
+            <input type="number" name="guests" placeholder="Guests" min="1" required />
+            <button type="submit" class="btn primary">Search</button>
+        </form>
+    </div>
+</section>
+
+        
         <section class="properties">
     <h2>Featured Properties</h2>
     <p class="section-subtitle">
@@ -114,12 +169,12 @@ $result = $conn->query($sql);
 .property-card h3 {
     font-size: 18px;
     margin: 10px 0;
-    color: #000; /* Changed to black */
+    color: #000; 
 }
 
 .property-card p {
     font-size: 16px;
-    color: #000; /* Changed to black */
+    color: #000; 
 }
 
 .property-card .price {
@@ -151,7 +206,7 @@ $result = $conn->query($sql);
         dateFormat: "Y-m-d",
         minDate: "today",
         locale: {
-            firstDayOfWeek: 1 // Start week on Monday
+            firstDayOfWeek: 1 
         }
     });
 </script>

@@ -12,16 +12,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($result->num_rows > 0) {
         $user = $result->fetch_assoc();
         
-        // Check if the password is correct
+        
         if (password_verify($password, $user['password'])) {
             $_SESSION['user_id'] = $user['Id'];
             $_SESSION['user_name'] = $user['firstName'];
+            $_SESSION['user_email'] = $user['email'];
 
-            // Redirect to the index page after successful login
-            header("Location: index.php");
-            exit();
-        } else {
-            echo "Incorrect password!";
+             
+             $redirect = isset($_POST['redirect']) && !empty($_POST['redirect']) ? $_POST['redirect'] : 'index.php';
+             header("Location: " . $redirect);
+             exit();
+         } else {
+             echo "Incorrect password!";
         }
     } else {
         echo "No user found with that email!";
