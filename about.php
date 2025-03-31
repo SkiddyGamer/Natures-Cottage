@@ -18,6 +18,15 @@
 			<h1>About Us</h1>
 			<p>Learn more about our mission and team.</p>
 		</main>
+		<footer>
+        <p>© 2025 NaturesCottage. Crafted with ❤️ for your perfect vacation.</p>
+        <div class="social-links">
+            <a href="#">Facebook</a>
+            <a href="#">Instagram</a>
+            <a href="#">Twitter</a>
+        </div>
+    </footer>
 		<script src="script.js"></script>
+
 	</body>
 </html>

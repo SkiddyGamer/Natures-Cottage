@@ -6,6 +6,7 @@
     <div id="signInForm">
         <h2>Sign In</h2>
         
+        
         <form method="post" action="login.php">
             <div class="input-group">
                 <p>Email</p>
@@ -15,6 +16,8 @@
                 <p>Password</p>
                 <input type="password" name="password" required>
             </div>
+            
+            <input type="hidden" name="redirect" value="<?php echo htmlspecialchars($_SERVER['REQUEST_URI']); ?>">
             <input type="submit" class="btn" value="Sign In">
         </form>
         <p>Don't have an account yet?</p>
@@ -25,6 +28,7 @@
         <h2>Sign Up</h2>
         
         <form method="post" action="register.php">
+        <input type="hidden" name="redirect" value="<?php echo htmlspecialchars($_SERVER['REQUEST_URI']); ?>">
             <div class="input-group">
                 <p>First Name</p>
                 <input type="text" name="fName" required>

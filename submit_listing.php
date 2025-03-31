@@ -1,9 +1,9 @@
 <?php
-// Database connection
-$host = 'localhost'; // Change if needed
-$username = 'root'; // Your database username
-$password = ''; // Your database password
-$database = 'submitlisting'; // Your database name
+session_start();
+$host = 'localhost';
+$username = 'root';
+$password = '';
+$database = 'submitlisting';
 
 $conn = new mysqli($host, $username, $password, $database);
 
@@ -12,6 +12,9 @@ if ($conn->connect_error) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    
+    $email = isset($_SESSION['user_email']) ? $_SESSION['user_email'] : $conn->real_escape_string($_POST['email']);
+    
     $first_name = $conn->real_escape_string($_POST['first_name']);
     $last_name = $conn->real_escape_string($_POST['last_name']);
     $phone = $conn->real_escape_string($_POST['phone']);
@@ -20,14 +23,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $city = $conn->real_escape_string($_POST['city']);
     $postal_code = $conn->real_escape_string($_POST['postal_code']);
     $property_name = $conn->real_escape_string($_POST['property_name']);
-    $price = (float) $_POST['price']; // Ensuring it's a numeric value
+    $price = (float) $_POST['price'];
     $description = $conn->real_escape_string($_POST['description']);
-    $guests = (int) $_POST['guests']; // Ensuring it's an integer
-    $bedrooms = (int) $_POST['bedrooms']; // Ensuring it's an integer
-    $bathrooms = (float) $_POST['bathrooms']; // Ensuring it's a decimal (e.g., 1.5)
+    $guests = (int) $_POST['guests'];
+    $bedrooms = (int) $_POST['bedrooms'];
+    $bathrooms = (float) $_POST['bathrooms'];
     $property_type = $conn->real_escape_string($_POST['property_type']);
-
-    // Handling Image Upload
+    $cover_index = isset($_POST['cover_index']) ? (int) $_POST['cover_index'] : 0;
+    
+    
     $imagePaths = [];
     if (!empty($_FILES['image']['name'][0])) {
         $uploadDir = 'uploads/';
@@ -42,6 +46,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if (move_uploaded_file($tmp_name, $targetFilePath)) {
                 $imagePaths[] = $targetFilePath;
             }
+        }
+
+        if (isset($imagePaths[$cover_index])) {
+            $coverImage = $imagePaths[$cover_index];
+            unset($imagePaths[$cover_index]);
+            array_unshift($imagePaths, $coverImage);
         }
     }
     
