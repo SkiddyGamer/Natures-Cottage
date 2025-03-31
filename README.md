@@ -1,2 +1,2 @@
 Projekta darbs programmēšanā.
-Veidoja - Karels Adams Jonass un Pauls Niklāvs Ušerovskis.
+Veidoja - Karels Adams Jonass
