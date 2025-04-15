@@ -1,16 +1,16 @@
 <?php
-
+// savienojas ar datubāzi submitlisting
 $host = 'localhost'; 
 $username = 'root'; 
 $password = ''; 
 $database_booking = 'submitlisting';
 $conn_booking = new mysqli($host, $username, $password, $database_booking);
 
-
+// savienojas ar otro datubāzi login
 $database_users = 'login';
 $conn_users = new mysqli($host, $username, $password, $database_users);
 
-
+// Ja savienojums ar kādu no datubāzēm neizdodas, tad pārtrauc 
 if ($conn_booking->connect_error || $conn_users->connect_error) {
     die("Connection failed: " . $conn_booking->connect_error . " / " . $conn_users->connect_error);
 }
@@ -22,6 +22,7 @@ $stmt->bind_param("i", $property_id);
 $stmt->execute();
 $result = $stmt->get_result();
 
+// Sagatavo masīvu aizņemtajiem datumiem
 $booked_dates = [];
 $booking_sql = "SELECT start_date, end_date FROM bookings WHERE property_id = ?";
 $booking_stmt = $conn_booking->prepare($booking_sql);
@@ -43,10 +44,12 @@ if ($result->num_rows > 0) {
     $property = $result->fetch_assoc();
     $images = explode(',', $property['images']); 
 
+    // Funkcija, lai paslēptu daļu no telefona numura
     function censorPhoneNumber($phone) {
         return '+371 ' . substr($phone, 0, 2) . str_repeat('*', strlen($phone) - 4) . substr($phone, -2);
     }
 
+    // Funkcija, lai paslēptu daļu no e-pasta
     function censorEmail($email) {
         $parts = explode('@', $email);
         return substr($parts[0], 0, 2) . str_repeat('*', max(0, strlen($parts[0]) - 2)) . '@' . $parts[1];
@@ -75,6 +78,7 @@ if ($result->num_rows > 0) {
  
         </style>
         <script>
+            // Funkcija, lai parādītu kontaktinfo
             function revealContact(id) {
                 let element = document.getElementById(id);
                 element.innerHTML = element.dataset.full;
@@ -113,6 +117,8 @@ if ($result->num_rows > 0) {
                                 echo '<img class="slide ' . ($index == 0 ? 'active' : '') . '" src="' . htmlspecialchars($trimmedImage) . '" alt="Property Image">';
                             }
                         } ?>
+
+                    <!--pogas priekš bilžu pārslēgšanas-->
                         <button class="prev" onclick="prevSlide()">&#10094;</button>
                         <button class="next" onclick="nextSlide()">&#10095;</button>
                     </div>
@@ -151,14 +157,12 @@ if ($result->num_rows > 0) {
 
                     </div>
                 </div>
-                
+                <!--Info par īpašumu-->
                 <div class="description-container">
                     <p><strong></strong> <?php echo nl2br(htmlspecialchars($property['description'])); ?></p>
                 </div>
                 <p class="price" style="margin-top: 10px;"><font size='5'><strong>Price:</strong></font><font size='6'> €<?php echo htmlspecialchars($property['price']); ?></font><strong> per night</strong> </p>
                 
-                
-                <h3><strong>Contact:</strong></h3>
                 <p><strong>Phone:</strong> <span id="phone" data-full="+371 <?php echo htmlspecialchars($property['phone']); ?>" onclick="revealContact('phone')" style="cursor: pointer; color: black;"> <?php echo censorPhoneNumber($property['phone']); ?> (Reveal Number)</span></p>
                 <p><strong>Email:</strong> <span id="email" data-full="<?php echo htmlspecialchars($property['email']); ?>" onclick="revealContact('email')" style="cursor: pointer; color: black;"> <?php echo censorEmail($property['email']); ?> (Reveal Email)</span></p>
             </div>
@@ -172,7 +176,7 @@ if ($result->num_rows > 0) {
         </div>
     </footer>
          
-    
+    <!--Mape ar īpašuma lokāciju-->
     </div>
         <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
         <script>
@@ -208,6 +212,7 @@ if ($result->num_rows > 0) {
     const totalPriceInput = document.getElementById("total_price");
     const pricePerNight = <?php echo htmlspecialchars($property['price']); ?>;
 
+    // kalendārs un tā funkcionalitāte
     flatpickr(dateRangeInput, {
         mode: "range",
         dateFormat: "Y-m-d",
@@ -238,6 +243,7 @@ if ($result->num_rows > 0) {
         </script>
         <script></script>
         <script>
+            // funcionalitate priekš bilžu pārslēgšanas
     let currentSlide = 0;
     const slides = document.querySelectorAll(".image-gallery .slide");
 

@@ -1,5 +1,5 @@
 <?php
-
+// savienojas ar datubāzi submitlisting
 $host = 'localhost'; 
 $username = 'root'; 
 $password = ''; 
@@ -13,7 +13,7 @@ if ($conn->connect_error) {
 
 
 
-
+// Iegūst visus rezervētos īpašumus no bookings tabulas
 $booked_properties = [];
 $booking_sql = "SELECT property_id, start_date, end_date FROM bookings";
 $booking_result = $conn->query($booking_sql);
@@ -47,6 +47,7 @@ $conn->close();
     <title>Browse Properties - NaturesCottage</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <!--stils-->
     <style>
         
         .property-listings {
@@ -168,6 +169,7 @@ $conn->close();
     <main>
         <h1>Property Listings</h1>
         <p>Browse through our available vacation rentals.</p>
+        <!--Meklēšanas filtrs, kalendārs, un viesu filtrs-->
         <input type="text" id="searchBar" placeholder="Search" onkeyup="filterProperties()" style="width: 100%; padding: 10px; margin-bottom: 20px; font-size: 16px; border: 1px solid #ccc; border-radius: 5px;">
         
         <input type="text" id="datePicker" placeholder="Select Dates" 
@@ -188,7 +190,7 @@ $conn->close();
 </select>
         
         <?php
-        
+        // otrs savienojums ar datubāzi lai iegūtu īpašumus
         $conn = new mysqli($host, $username, $password, $database);
 
         if ($conn->connect_error) {
@@ -208,7 +210,6 @@ $conn->close();
                 $bathrooms = (float)$row['bathrooms'];
                 $guests = (int)$row['guests'];
 
-                
                 $propertyIcons = [
                     'house' => 'fa-home',
                     'villa' => 'fa-landmark',
@@ -218,12 +219,16 @@ $conn->close();
                 $propertyIcon = isset($propertyIcons[$property_type]) ? $propertyIcons[$property_type] : 'fa-home';
 
                 echo '<a href="property_details.php?id=' . $property_id . '" class="property-card" data-property-id="' . $property_id . '">';  
+                
+                // Rāda pirmo attēlu
                 $images = explode(',', $row['images']);
                 if (!empty($images[0])) {
                     echo '<img src="' . htmlspecialchars($images[0]) . '" alt="Property Image">';
                 }
                 echo '<div class="property-details">';
                 echo '<h2>' . htmlspecialchars($row['property_name']) . '</h2>';
+
+                // Apstrādā aprakstu, ne vairāk kā 70 simboli
                 $maxLength = 70; 
                 $description = htmlspecialchars($row['description'], ENT_QUOTES, 'UTF-8');
                 $shortDescription = mb_substr($description, 0, $maxLength, 'UTF-8');
@@ -233,8 +238,11 @@ $conn->close();
                 }
 
                 echo '<p>' . $shortDescription . '</p>';
-                echo '<p class="price"><strong>€' . htmlspecialchars($row['price']) . '</strong> / night</p>';
 
+                // Parāda cenu par nakti
+                echo '<p class="price"><strong>€' . htmlspecialchars($row['price']) . '</strong> / night</p>';
+                
+                // Informācijas josla
                 echo '<div class="info-bar">';
                 echo '<span><i class="fas fa-map-marker-alt"></i> ' . htmlspecialchars($row['city']) . '</span>';
                 echo '<span><i class="fas fa-bed"></i> ' . $bedrooms . '</span>';
@@ -265,10 +273,11 @@ $conn->close();
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script>
-    
+
+    // Datu nodošana no PHP uz JS
     const bookedProperties = <?php echo $booked_properties_json; ?>;
 
-    
+    // kalendārs
     const datePicker = flatpickr("#datePicker", {
         mode: "range",
         dateFormat: "Y-m-d",
@@ -288,7 +297,7 @@ $conn->close();
         return `${year}-${month}-${day}`;
     }
 
-    
+    // meklēšanas, kalendāra un viesu skaita filtru funkcinalitāte
     function filterProperties() {
     const input = document.getElementById('searchBar').value.toLowerCase();
     const guestFilter = document.getElementById('guestFilter').value;
@@ -303,7 +312,7 @@ $conn->close();
         formattedStartDate = formatDate(selectedDates[0]);
         formattedEndDate = formatDate(selectedDates[1]);
     }
-
+    // Atjauno URL ar meklēšanas parametriem
     const queryParams = new URLSearchParams();
     if (input) queryParams.set('location', input);
     if (formattedStartDate && formattedEndDate) queryParams.set('dates', `${formattedStartDate} to ${formattedEndDate}`);
@@ -312,6 +321,7 @@ $conn->close();
     
     window.history.replaceState({}, '', `${window.location.pathname}?${queryParams.toString()}`);
 
+    // Filtrē katru īpašuma kartīti
     propertyCards.forEach(card => {
         const title = card.querySelector('h2').innerText.toLowerCase();
         const description = card.querySelector('p').innerText.toLowerCase();
@@ -319,10 +329,11 @@ $conn->close();
         const guests = parseInt(card.querySelector('.info-bar span:nth-child(4)').innerText.trim());
         const propertyId = card.getAttribute('data-property-id');
 
+        // Meklēšanas filtrs (nosaukums, apraksts, vieta)
         const matchesSearch = title.includes(input) || description.includes(input) || location.includes(input);
 
         
-         
+         // Filtrē pēc viesu skaita
          let matchesGuestFilter = true;
         if (guestFilter !== "") {
             const selectedGuests = parseInt(guestFilter);
@@ -333,7 +344,7 @@ $conn->close();
             }
         }
 
-        
+        // Pārbauda, vai īpašums rezervēts izvēlētajos datumos
         let isBooked = false;
         if (formattedStartDate && formattedEndDate) {
             isBooked = bookedProperties.some(booking => {
@@ -346,7 +357,7 @@ $conn->close();
             });
         }
 
-        
+        // Parāda vai paslēpj kasti pēc filtriem
         if (matchesSearch && matchesGuestFilter && !isBooked) {
             card.style.display = ""; 
         } else {
@@ -354,7 +365,7 @@ $conn->close();
         }
     });
 }
-    
+    // Funkcija, kas aizpilda meklēšanas laukus ar URL parametriem
     function prefillInputs() {
     const urlParams = new URLSearchParams(window.location.search);
     const location = urlParams.get('location');
@@ -382,7 +393,7 @@ $conn->close();
     filterProperties();
 }
 
-    
+    // kad tiek veikta darbība, piemēram, kautkas ierakstīs vai mainīts, filtri tiek pielietoti
     document.getElementById('searchBar').addEventListener('keyup', filterProperties);
     document.getElementById('guestFilter').addEventListener('change', filterProperties);
     document.getElementById('datePicker').addEventListener('change', filterProperties);

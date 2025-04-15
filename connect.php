@@ -1,4 +1,5 @@
 <?php
+// savienojas ar datubāzi login
 $servername = "localhost"; 
 $username = "root";
 $password = ""; 

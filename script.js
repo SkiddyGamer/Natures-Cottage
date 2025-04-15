@@ -1,3 +1,4 @@
+// funkcionalitāte priekš sign in un sign up
 signUpButton.addEventListener('click',function(){
     signInForm.style.display="none";
     signUpForm.style.display="block";

@@ -1,11 +1,12 @@
 <?php
 session_start();
 
+// Pārbauda, vai lietotājs ir pieteicies,ja nav, tiek parādīta kļūda.
 if (!isset($_SESSION['user_id'])) {
     die("Session error: User not logged in. Session ID: " . session_id());
 }
 
-
+// savienojas ar datubāzēm
 $host = 'localhost';
 $username = 'root';
 $password = '';
@@ -28,7 +29,7 @@ if ($property_id <= 0) {
     die("Invalid property ID");
 }
 
-
+// iegūst īpašuma nosaukumu
 $property_query = $conn_booking->prepare("SELECT property_name FROM properties WHERE id = ?");
 $property_query->bind_param("i", $property_id);
 $property_query->execute();
@@ -39,14 +40,14 @@ if ($property_result->num_rows === 0) {
 }
 $property = $property_result->fetch_assoc();
 
-
+// iegūst lietotāja e-pastu
 $user_email_query = $conn_users->prepare("SELECT email FROM users WHERE id = ?");
 $user_email_query->bind_param("i", $_SESSION['user_id']);
 $user_email_query->execute();
 $user_email_result = $user_email_query->get_result();
 $user_email = $user_email_result->fetch_assoc()['email'];
 
-
+// pārbauda vai īpašuma īpašniekam atbilst e-pasts un id
 $ownership_query = $conn_booking->prepare("SELECT id FROM properties WHERE id = ? AND email = ?");
 $ownership_query->bind_param("is", $property_id, $user_email);
 $ownership_query->execute();
@@ -56,7 +57,7 @@ if ($ownership_result->num_rows === 0) {
     die("You don't have permission to view bookers for this property");
 }
 
-
+// iegūst rezervācijas datus par konkrēto īpašumu
 $bookings_query = $conn_booking->prepare("
     SELECT b.*, u.firstName, u.lastName, u.email, u.phoneNumber 
     FROM bookings b
@@ -76,6 +77,7 @@ $bookings = $bookings_result->fetch_all(MYSQLI_ASSOC);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View Bookers - <?php echo htmlspecialchars($property['property_name']); ?></title>
+    <!--Stils-->
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -247,6 +249,8 @@ footer .social-links a {
 <body>
     <div class="container">
         <a href="account.php" class="back-link">← Back to Your Account</a>
+
+        <!--Veido tabulas un norāda tāja datus -->
         <h1>Bookers for: <?php echo htmlspecialchars($property['property_name']); ?></h1>
         
         <?php if (count($bookings) > 0): ?>

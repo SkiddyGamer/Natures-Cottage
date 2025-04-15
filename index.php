@@ -1,5 +1,5 @@
 <?php
-
+// savienojas ar datubāzi
 $host = 'localhost';
 $username = 'root';
 $password = '';
@@ -82,8 +82,11 @@ $result = $conn->query($sql);
 
 
 .properties {
-    margin-top: -210px; 
-}</style>
+    margin-top: -210px;
+     
+}
+
+</style>
 
     <main>
     <section class="hero">
@@ -110,6 +113,7 @@ $result = $conn->query($sql);
     </p>
     <div class="property-grid">
         <?php
+        // paņem pēdējo 3 ievietoto īpašumu info un ievieto īpašumu kastēs
         $sql = "SELECT id, property_name, price, images FROM properties ORDER BY id DESC LIMIT 3";
         $result = $conn->query($sql);
 
@@ -189,7 +193,7 @@ $result = $conn->query($sql);
 </style>
 
     </main>
-
+ 
     <footer>
         <p>© 2025 NaturesCottage. Crafted with ❤️ for your perfect vacation.</p>
         <div class="social-links">
@@ -198,8 +202,10 @@ $result = $conn->query($sql);
             <a href="#">Twitter</a>
         </div>
     </footer>
-
+    
+ <!-- Kalendārs -->  
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    
 <script>
     flatpickr("#date-range", {
         mode: "range",
@@ -214,5 +220,6 @@ $result = $conn->query($sql);
 </html>
 
 <?php
+// aizver datubāzes savienojumu
 $conn->close();
 ?>

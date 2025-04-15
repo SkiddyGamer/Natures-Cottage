@@ -1,23 +1,23 @@
 <?php
 session_start(); 
 
-
+// savienojas ar datubāzi submitlisting
 $host = 'localhost';
 $username = 'root';
 $password = '';
 $database_booking = 'submitlisting';
 $conn_booking = new mysqli($host, $username, $password, $database_booking);
 
-
+// savienojas ar datubāzi login
 $database_users = 'login';
 $conn_users = new mysqli($host, $username, $password, $database_users);
 
-
+// Pārbauda savienojumu ar abām datubāzēm
 if ($conn_booking->connect_error || $conn_users->connect_error) {
     die("Connection failed: " . $conn_booking->connect_error . " / " . $conn_users->connect_error);
 }
 
-
+// Pārbauda, vai lietotājs ir pieslēdzies
 if (!isset($_SESSION['user_id'])) {
     echo "<script>alert('You must be logged in to make a booking.'); window.location.href='login.php';</script>";
     exit();
@@ -29,7 +29,7 @@ $start_date = $_POST['start_date'];
 $end_date = $_POST['end_date'];
 $total_price = $_POST['total_price'];
 
-
+// Iegūst lietotāja datus no login datubāzes
 $user_query = $conn_users->prepare("SELECT * FROM users WHERE id = ?");
 $user_query->bind_param("i", $user_id);
 $user_query->execute();
@@ -59,7 +59,7 @@ if (!empty($property_id) && !empty($start_date) && !empty($end_date) && !empty($
     echo "<script>alert('Please provide all booking details.'); window.history.back();</script>";
 }
 
-
+// Aizver savienojumus ar abām datubāzēm
 $conn_booking->close();
 $conn_users->close();
 ?>

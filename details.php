@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="styles.css" />
     <?php include 'Header.php'; ?>
     <?php include 'login_form.php'; ?>
-
+<!-- stils -->
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -98,6 +98,7 @@
 <body>
 
 <main>
+    <!-- Forma, kur lietotājs iesniedz īpašuma datus -->
     <h1>Tell us about yourself!</h1>
     
     <form action="submit_listing.php" method="POST" enctype="multipart/form-data">
@@ -121,6 +122,7 @@
             <input type="text" id="postal_code" name="postal_code" placeholder="Postal Code">
         </div>
 
+        <!-- mape -->
         <div id="map"></div>
         <label for="price">Price</label>
         <input type="number" id="price" name="price" placeholder="Price per Night (€)" required>
@@ -141,14 +143,14 @@
         <label for="description">Description</label>
         <textarea id="description" name="description" rows="4" placeholder="Short description" required oninput="this.style.height = ''; this.style.height = this.scrollHeight + 'px'"></textarea>
 
-        <label for="file-input">Upload Property Photos</label>
+        <label for="file-input">Upload Property Photos (Max 15)</label>
         <input type="file" id="file-input" name="image[]" accept="image/*" multiple required>
         Choose thumbnail image! 
         <input type="hidden" id="cover-index" name="cover_index" value="0">
         <div id="image-preview"></div>
 
         
-
+        <!-- Tikai ja lietotājs ir ielogojies, rādīt submit pogu -->
         <?php if (isset($_SESSION['user_id'])): ?>
     <button id="Pogasubmit" type="submit">Submit Listing</button>
     <?php else: ?>
@@ -167,6 +169,7 @@
         </div>
     </footer>
 <script>
+    // izvēlies failus
     document.getElementById('file-input').addEventListener('change', function(event) {
     const preview = document.getElementById('image-preview');
     preview.innerHTML = '';
@@ -185,14 +188,14 @@ if (event.target.files.length > maxImages) {
         return;
     }
 
-    
+    // Pārveido failus un pievieno priekšskatījumus
     Array.from(event.target.files).forEach((file, index) => {
         const img = document.createElement('img');
         img.src = URL.createObjectURL(file);
         img.classList.add('preview-image');
         img.dataset.index = index;
 
-        
+        // Kad uzklikšķina uz attēla, atzīmē kā izvēlēto thumbnail.
         img.addEventListener('click', function() {
             
             document.querySelectorAll('.preview-image').forEach(el => {
@@ -218,13 +221,15 @@ if (event.target.files.length > maxImages) {
 </script>
 
 <script>
-    let map = L.map('map').setView([56.8796, 24.6032], 6); 
+    // Mapes kods
+    let map = L.map('map').setView([56.8796, 24.6032], 6); // Sākuma koordinātas uz Latviju
     let marker = L.marker([56.8796, 24.6032]).addTo(map);
     
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '© OpenStreetMap contributors'
     }).addTo(map);
 
+    // Funkcija, kas meklē adresi 
     function updateMap(query) {
         fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}`)
             .then(response => response.json())
@@ -239,6 +244,7 @@ if (event.target.files.length > maxImages) {
             .catch(error => console.error('Error fetching location:', error));
     }
 
+    // Uztaisa vaicājumu pēc uzrakstītās ielas vai pilsētas
     function handleLocationUpdate() {
         let city = document.getElementById('city').value.trim();
         let street = document.getElementById('street_address').value.trim();
@@ -250,7 +256,7 @@ if (event.target.files.length > maxImages) {
         }
     }
 
-    
+    // Debounce, lai nebūtu pārāk daudz pieprasījumu
     function debounce(func, delay) {
         let timer;
         return function() {
@@ -259,7 +265,7 @@ if (event.target.files.length > maxImages) {
         };
     }
 
-    
+    // Kad lietotājs raksta adresi tiek pielietota debounce
     document.getElementById('city').addEventListener('input', debounce(handleLocationUpdate, 500));
     document.getElementById('street_address').addEventListener('input', debounce(handleLocationUpdate, 500));
 </script>

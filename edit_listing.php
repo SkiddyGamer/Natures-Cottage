@@ -1,7 +1,8 @@
 <?php
 session_start();
-include 'connect.php';
+include 'connect.php'; // Pievieno savienojumu ar lietotāju datubāzi
 
+// savienojas ar datubāzi submitlisting
 $host = 'localhost';
 $username = 'root';
 $password = '';
@@ -16,6 +17,7 @@ if (!isset($_SESSION['user_id'])) {
 $user_id = $_SESSION['user_id'];
 $user_email = '';
 
+// Iegūst lietotāja e-pastu no users tabulas
 $user_query = "SELECT email FROM users WHERE Id = $user_id";
 $user_result = $conn->query($user_query);
 
@@ -46,6 +48,7 @@ if ($listing_id > 0) {
 
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // apstrādā datus
     $property_name = $conn_listing->real_escape_string($_POST['property_name']);
     $price = (float)$_POST['price'];
     $description = $conn_listing->real_escape_string($_POST['description']);
@@ -58,14 +61,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $existing_images = isset($_POST['existing_images']) ? $_POST['existing_images'] : [];
     $image_paths = [];
     
-   
+   // Saglabā attēlus, kuri ir izvēlēti
     foreach ($images as $index => $image) {
         if (in_array($index, $existing_images)) {
             $image_paths[] = $image;
         }
     }
     
-    
+    // Apstrādā jaunus attēlus
     if (!empty($_FILES['new_images']['name'][0])) {
         $uploadDir = 'uploads/';
         if (!is_dir($uploadDir)) {
@@ -86,7 +89,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     
     $image_paths_string = implode(',', $image_paths);
     
-    
+    // Atjauno sludinājumu ar jauniem datiem
     $update_query = "UPDATE properties SET 
                     property_name = '$property_name',
                     price = $price,
@@ -114,6 +117,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Listing</title>
     <link rel="stylesheet" href="styles.css">
+    <!--stils-->
     <style>
         .image-preview {
             display: flex;
@@ -204,7 +208,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <?php if (isset($error)): ?>
             <div class="error" style="color: red; margin-bottom: 15px;"><?php echo $error; ?></div>
         <?php endif; ?>
-        
+
+        <!--formas lai varētu ievadīt info-->
         <form action="edit_listing.php?id=<?php echo $listing_id; ?>" method="POST" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="property_name">Property Name</label>
@@ -289,7 +294,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 </footer>
 
 <script>
-    
+    // funkcija, lai noņemtu bildi
     document.querySelectorAll('.remove-image').forEach(button => {
         button.addEventListener('click', function() {
             this.parentElement.querySelector('input[type="checkbox"]').removeAttribute('checked');

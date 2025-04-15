@@ -1,4 +1,5 @@
 <?php
+// savienojas ar booking submitlisting
 session_start();
 include 'connect.php'; 
 
@@ -17,7 +18,7 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
-
+// apstrādā pieprasījumu izdzēst īpašumu
 if (isset($_GET['delete_id'])) {
     $delete_id = $_GET['delete_id'];
     $user_email = $_SESSION['user_email'] ?? '';
@@ -83,6 +84,7 @@ if ($result->num_rows > 0) {
 </header>
 
 <main>
+    <!-- Lietotāja konta informācija -->
     <section class="account-info">
         <h2>Your Account:</h2>
         <p>Name: <?php echo htmlspecialchars($user['firstName']); ?></p>
@@ -97,6 +99,7 @@ if ($result->num_rows > 0) {
             <div class="error-message"><?php echo htmlspecialchars($delete_error); ?></div>
         <?php endif; ?>
 
+        <!-- Lietotāja rezervācijas -->
         <h3>Your Bookings:</h3>
         <div class="booking-container">
             <?php
@@ -129,7 +132,7 @@ if ($result->num_rows > 0) {
             }
             ?>
         </div>
-        
+        <!-- Lietotāja sludinājumi -->
         <h3>Your Listings:</h3>
         <div class="booking-container">
             <?php
@@ -146,6 +149,7 @@ if ($result->num_rows > 0) {
                         $image_url = 'default-property.jpg'; 
                     }
 
+                    // parāda rezervācijas kartiņas informāciju un turpmākās iespējas, piemēram, pogas, lai editotu vai izdzēstu
                     echo '<div class="booking-card">';
                     echo '    <img src="' . htmlspecialchars($image_url) . '" alt="Property Image">';
                     echo '    <h3>' . htmlspecialchars($listing['property_name']) . '</h3>';
@@ -183,5 +187,6 @@ if ($result->num_rows > 0) {
 </html>
 
 <?php
+// aizver datubāzi booking
 $conn_booking->close();
 ?>

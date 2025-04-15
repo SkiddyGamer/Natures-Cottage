@@ -1,3 +1,4 @@
+<!--Formas priekš sing in un sign up-->
 <div id="overlay"></div>
 
 <div id="authForm">
@@ -57,6 +58,7 @@
 </div>
 
 <script>
+    // funkcionalitāte priekš sign in un sign up pogām
     const signInButton = document.getElementById("signInButton");
     const signUpButton = document.getElementById("signUpButton");
     const authForm = document.getElementById("authForm");
